@@ -10,8 +10,15 @@ st.header('Descripción general de los datos')
 st.write('Este análisis proporciona una descripción general de los datos de vehículos')
 
 # Mostrar un histograma
-st.header('Histograma del kilometraje de los vehículos')
-hist_fig = px.histogram(car_data, x="odometer", title="Histograma del kilometraje de los vehículos")
+st.header('Histogramas')
+feature_options = {
+    "Año del Modelo": "model_year",
+    "Cuenta Kilométrica": "odometer",
+    "Precio": "price"
+}
+selected_feature = st.selectbox("Selecciona una característica para el histograma:", list(feature_options.keys()), index=0)
+selected_feature_key = feature_options[selected_feature]
+hist_fig = px.histogram(car_data, x=selected_feature_key, title=f"Histograma de {selected_feature}")
 st.plotly_chart(hist_fig, use_container_width=True)
 
 # Mostrar un gráfico de dispersión
